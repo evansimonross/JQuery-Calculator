@@ -126,6 +126,85 @@
             var hasSecondNumber = false;
             var hasResult = false;
 
+            var numberList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            var operatorList = ['+', '-', 'x', '/', '^', '%', '*'];
+
+            document.addEventListener('keydown', function(event) {
+                var userInput = event.key;
+                for (var i = 0; i < numberList.length; i++) {
+                    if (!hasOperator) {
+                        if (userInput == numberList[i]) {
+                            $('#first-number').append(userInput); 
+                            hasFirstNumber = true;
+                        }
+                    } else {
+                        if (userInput == numberList[i]) {
+                            $('#second-number').append(userInput); 
+                            hasSecondNumber = true; 
+                        }  
+                    }
+                }
+                
+                if (hasFirstNumber) {
+                    if (userInput == operatorList[0]) {
+                        $('#operator').append('+'); 
+                        hasOperator = true; 
+                    }
+                    if (userInput == operatorList[1]) {
+                        $('#operator').append('−');
+                        hasOperator = true; 
+                    }
+                    if ((userInput == operatorList[2]) || (userInput == operatorList[6])) {
+                        $('#operator').append('×');
+                        hasOperator = true; 
+                    }
+                    if (userInput == operatorList[3]) {
+                        $('#operator').append('÷');
+                        hasOperator = true; 
+                    }
+                    if (userInput == operatorList[4]) {
+                        $('#operator').append('^');
+                        hasOperator = true; 
+                    }
+                    if (userInput == operatorList[5]) {
+                        $('#operator').append('%');
+                        hasOperator = true; 
+                    }
+                }
+
+                if(hasSecondNumber) {
+                    if (event.keyCode == 13) {
+                    var firstNumber = parseInt($('#first-number').text());
+                    var secondNumber = parseInt($('#second-number').text());
+                    var result = $('#result');
+                    // WHY DO WE NEED TO TRIM THIS?!
+                    switch ($('#operator').text().trim()) {
+                        case '+':
+                            result.text(firstNumber + secondNumber);
+                            break;
+                        case '−':
+                            result.text(firstNumber - secondNumber);
+                            break;
+                        case '×':
+                            result.text(firstNumber * secondNumber);
+                            break;
+                        case '÷':
+                            result.text(firstNumber / secondNumber);
+                            break;
+                        case '^':
+                            result.text(firstNumber ** secondNumber);
+                            break;
+                        case '%':
+                            result.text(firstNumber % secondNumber);
+                            break;
+                        default:
+                    };
+                    }
+                    hasResult = true; 
+                }
+
+            });
+
             $('.number').on('click', function () {
                 if (!hasOperator) {
                     var currentText = $('#first-number').text();
@@ -152,7 +231,7 @@
                 }
             });
 
-            $('.equal').on('click', function () {
+            $('.equal').on('click', function solution() {
                 if (hasSecondNumber) {
                     var firstNumber = parseInt($('#first-number').text());
                     var secondNumber = parseInt($('#second-number').text());
