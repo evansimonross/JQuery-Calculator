@@ -94,8 +94,11 @@
                         <button id="button-equal" class="btn btn-success equal" value="equals">
                             <h1>=</h1>
                         </button>
+                        <button id="button-push" class="btn btn-dark push" value="push">
+                                <h1>←</h1>
+                            </button>
                         <button id="button-clear" class="btn btn-dark clear" value="clear">
-                            <h1>clear</h1>
+                            <h1>CLR</h1>
                         </button>
                     </div>
                 </div>
@@ -153,6 +156,9 @@
             });
 
             $('.equal').on('click', function () {
+                if (hasResult) {
+                    $('#first-number').text($('#result').text());
+                }
                 if (hasSecondNumber) {
                     var firstNumber = parseInt($('#first-number').text());
                     var secondNumber = parseInt($('#second-number').text());
@@ -181,9 +187,18 @@
                     };
                     hasResult = true;
                 }
-                else {
+                else{
 
                 }
+            });
+
+            $('.push').on('click', function () {
+                hasOperator = false;
+                hasSecondNumber = false;
+                hasResult = false;
+                var oldResult = $('#result').text();
+                $('.display').empty();
+                $('#first-number').text(oldResult);
             });
 
             $('.clear').on('click', function () {
