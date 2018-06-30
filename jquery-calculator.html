@@ -130,13 +130,13 @@
             var hasResult = false;
 
             $('.number').on('click', function () {
-                if (!hasOperator) {
+                if (hasResult){
+                    
+                }
+                else if (!hasOperator) {
                     var currentText = $('#first-number').text();
                     $('#first-number').text(currentText + $(this).attr('value'));
                     hasFirstNumber = true;
-                }
-                else if(hasResult){
-                    
                 }
                 else {
                     var currentText = $('#second-number').text();
@@ -146,7 +146,7 @@
             });
 
             $('.operator').on('click', function () {
-                if (hasOperator || !hasFirstNumber) {
+                if (hasOperator || !hasFirstNumber || hasResult) {
 
                 }
                 else {
@@ -188,7 +188,8 @@
                     hasResult = true;
                 }
                 else{
-
+                    $('#result').text($('#first-number').text());
+                    hasResult = true;
                 }
             });
 
